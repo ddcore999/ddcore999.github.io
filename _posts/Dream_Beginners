@@ -54,5 +54,3 @@ HTTP 응답 헤더를 기반으로 웹 서비스의 보안 설정, 캐시 정책
 - 쿠키 보안 속성 (Secure, HttpOnly, SameSite) 검사
 - Cache-Control 및 CDN 캐싱 정책 해석
 - Rate-limit 헤더 기반 트래픽 제어 정책 추정
-- TLS 버전 및 인
-
