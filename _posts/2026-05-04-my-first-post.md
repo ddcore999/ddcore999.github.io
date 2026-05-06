@@ -781,7 +781,7 @@ C코드가 실행되면:
 **추가 개념**
 
 - Plaintext(평문): 암호화되기 전의 원래 데이터 즉, 원본 메시지
-- - Ciphertext(암호문): 암호화된 결과 데이터, 키 없으면 해석 불가
+- Ciphertext(암호문): 암호화된 결과 데이터, 키 없으면 해석 불가
 - Key: 암호화/복호화에 사용하는 비밀 값, Plaintext를 Ciphertext 로 바꾸는 기준 또는 반대로 복구하는 열쇠
 
 ### **암호학 공부 전 필요한 기초 지식**
@@ -1112,6 +1112,3 @@ UNIX의 Vi(Visual editor) 기능을 개선한 버전의 텍스트 편집기
 
 ![](https://github.com/user-attachments/assets/ac5e976f-3abe-4bad-8a4f-c68f60f57996)
 
-
-- Ciphertext(암호문): 암호화된 결과 데이터, 키 없으면 해석 불가
-- Key: 암호화/복호화에 사용하는 비밀 값, Plaintext를 Ciphertext 로 바꾸는 기준 또는 반대로 복구하는 열쇠
