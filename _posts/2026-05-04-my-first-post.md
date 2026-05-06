@@ -953,5 +953,163 @@ GET / HTTP/1.1
 - nc로 접속하기: nc Host port 명령을 통해 문제 환경에 접속(대부분 포너블 문제들이 사용함)
 
 문제 설명 → 접속 정보 확인 → 접속 방식 선택 → 환경 접속
+
+## 2)SSH(Secure Shell, Secure Socket Shell)
+
+- 원격 Linux 서버에 연결하는 가장 일반적인 방식
+- 원격 서버(컴퓨터)에 연결할 수 있도록 해 주는 암호화된 네트워크 프로토콜
+
+### **1) SSH 사용법**
+
+#### (1) 기본 접속 명령어
+`ssh user@host -p port`
+
+#### (2) 구조
+
+- `user` → 접속 계정 이름
+- `host` → 서버 주소 (도메인 or IP)
+- `-p port` → 접속 포트 지정
+- `-i` → 인증에 사용할 **개인키 파일 지정**
+
+#### (3) 접속 과정
+
+명령어 입력→보안 확인 메시지 뜸 (yes 입력)→비밀번호 입력 (또는 키 인증)→리눅스 쉘 접속 완료
+
+#### (4) 인증 방식
+
+**패스워드 인증**
+
+👉 접속 후 비밀번호 입력으로 인증
+
+- `ssh user@HOST` 실행
+- 서버가 비밀번호 요구
+- 맞으면 로그인 성공
+
+**공개 키 인증**
+
+👉 키 쌍으로 인증
+
+- 클라이언트: 개인키
+- 서버: 공개키
+
+👉 공개 키-개인 키 키쌍은 ssh-keygen 명령으로 생성 가능
+
+### 2) SSH 사용 예시
+
+#### (1) 비밀번호로 접속
+
+✔️ 형식
+
+```
+ssh 사용자@호스트-p 포트
+```
+
+✔️ 예시
+
+```
+ssh bguser@host3.dreamhack.games-p11051
+```
+
+→ 이후 비밀번호 입력:
+
+```
+bgpw
+```
+
+👉 결과: 서버 접속 성공 (쉘 획득)
+
+#### (2) 개인 키로 접속
+
+✔️ 형식
+
+```
+ssh 사용자@호스트-p 포트-i 키파일
+```
+
+✔️ 예시
+
+```
+ssh bguser@host3.dreamhack.games-p11051-i key.pem
+```
+
+👉 특징:
+
+- 비밀번호 대신 **키 파일로 인증**
+
+핵심
+
+- SSH = 원격 서버 로그인
+- `ssh user@host -p port`
+- 비번 or 키로 인증
+- 접속하면 **쉘 획득**
+- 목표 = **flag 파일 찾기**
+
+## 3) Coding(코딩)
+
+### (1) Visual Studio Code-Tips
+
+- 커맨드 팔레트(Command Palette)
+
+-VS code에 존재하는 기능을 키보드 입력으로 검색하고 실행할 수 있는 간펺나 명령 처리 기능
+
+-View-Command Palette… or Ctrl+Shift+P로 열 수 있다
+
+- 터미널(Terminal)
+
+-빠르게 명령어를 실행할 수 있음
+
+-View-Terminal or Ctrl+로 터미널 창 열기 가능
+
+- 리눅스 VM(WSL2)에서의 VS Code 연결
+
+-우분투 셸을 열고, VS Code에서 열고 싶은 디렉토리로 이동 → code . 명령어 입력 → VS Code 창이 생기며 해당 디렉토리의 파일들을 열고 수정할 수 있음
+
+- 
+
+#### (2) 디버깅
+
+소스 코드의 오류(버그)를 찾고 수정하는 과정
+
+코드를 검사하여 잘못된 부분을 찾거나, 특정 코드를 수행한 결과를 확인하기 위해 사용
+
+(VS code) Run-Start Debugging or 단축키 F5로 디버깅 시작
+
+- Breakpoint(중단점)
+
+-주로 확인하고 싶은 코드에 Breakpoint를 설정한 뒤 디버깅 시작
+
+-해당 코드르 실행하기 직전에 프로그램을 중단하여 그 시점의 변수 값이나 콜 스택 정보 확인 가능
+
+-코드 줄 번호 왼쪽 클릭 or 코드에 커서 두고 f9 클릭
+
+- Debug View
+
+-VARIABLES(변수), WATCH(변수 or 표현식의 결과), CALL STACK(호출한 함수), BREAKPOINTS(사용자가 설정한 중단점 목록) 등 정보 확인 가능
+
+- Debug Toolbar
+
+-⏯ Continue/Pause: 다음 중단점을 만날 때까지 프로그램 실행 or 중단 (f5)
+
+-➡ Step Over: 코드 한 줄 실행-함수를 만나면 함수 실행 (f10)
+
+-⬇ Step Into: 코드 한 줄 실행-함수를 만나면 함수 내부로 이동하여 한 줄 실행 (f11)
+
+-⬆ Step Out: 함수의 나머지 부분을 모두 실행 (Shift+f11)
+
+-🔄 Restart: 디버깅 재시작 (Ctrl+Shift+f5)
+
+-⏹ Stop: 디버깅 종료 (Shift+f5)
+
+- Debug Console
+
+-디버깅 결과를 출력하는 콘솔 창
+
+#### (3) Vim(Vi IMproved)
+
+UNIX의 Vi(Visual editor) 기능을 개선한 버전의 텍스트 편집기
+
+마우스 없이 키보드 입력만으로 모든 작업 가능
+
+![VM.PNG](attachment:d9ab1456-a877-48c3-b5ba-ac8b39daffec:VM.png)
 - Ciphertext(암호문): 암호화된 결과 데이터, 키 없으면 해석 불가
 - Key: 암호화/복호화에 사용하는 비밀 값, Plaintext를 Ciphertext 로 바꾸는 기준 또는 반대로 복구하는 열쇠
