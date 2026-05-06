@@ -1110,6 +1110,5 @@ UNIX의 Vi(Visual editor) 기능을 개선한 버전의 텍스트 편집기
 
 마우스 없이 키보드 입력만으로 모든 작업 가능
 
-![VM.PNG](attachment:d9ab1456-a877-48c3-b5ba-ac8b39daffec:VM.png)
 - Ciphertext(암호문): 암호화된 결과 데이터, 키 없으면 해석 불가
 - Key: 암호화/복호화에 사용하는 비밀 값, Plaintext를 Ciphertext 로 바꾸는 기준 또는 반대로 복구하는 열쇠
