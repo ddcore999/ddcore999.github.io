@@ -1110,5 +1110,7 @@ UNIX의 Vi(Visual editor) 기능을 개선한 버전의 텍스트 편집기
 
 마우스 없이 키보드 입력만으로 모든 작업 가능
 
+
+
 ![](https://github.com/user-attachments/assets/ac5e976f-3abe-4bad-8a4f-c68f60f57996)
 
