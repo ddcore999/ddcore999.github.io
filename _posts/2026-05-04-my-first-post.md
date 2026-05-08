@@ -1488,9 +1488,9 @@ CMD ["[app.py](http://app.py/)"]
 
 Dockerfile이 위와 같을 때
 
-docker run [이미지]로 컨테이너 실행 시 python [app.py](http://app.py) 실행
+'''docker run [이미지]로 컨테이너 실행 시 python [app.py](http://app.py) 실행'''
 
-docker run [이미지] [test.py](http://test.py)로 컨테이너 실행 시 python test.py 실행
+'''docker run [이미지] [test.py](http://test.py)로 컨테이너 실행 시 python test.py 실행'''
 
 #### 3) Docker Hub
 
