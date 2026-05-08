@@ -1329,7 +1329,7 @@ docker inspect [옵션] <이미지 or 컨테이너명|ID>
 
 **(1) Dockerfile 구성 방법, 명령어 -1**
 
-docker biuld: 이름이 Dockerfile인 파일을 찾아 이미지를 빌드함
+docker build: 이름이 Dockerfile인 파일을 찾아 이미지를 빌드함
 
 -f: 원하는 이름의 도커 파일 사용 가능
 
@@ -1479,18 +1479,22 @@ ex) CMD ["echo", "hello"]
 
 -docker run의 인자를 작성하면 CMD 명령어 무시
 
--ENTERPOINT가 있는 경우, docker run의 인자가 ENTERPOINT의 인자로 들어감
+-ENTRYPOINT가 있는 경우, docker run의 인자가 ENTRYPOINT의 인자로 들어감
 
 ```c
 ENTRYPOINT ["python"]
-CMD ["[app.py](http://app.py/)"]
+CMD ["app.py"]
 ```
 
 Dockerfile이 위와 같을 때
 
-```docker run [이미지]로 컨테이너 실행 시 python [app.py](http://app.py) 실행```
+```c
+docker run [이미지]로 컨테이너 실행 시 python app.py 실행
+```
 
-```docker run [이미지] [test.py](http://test.py)로 컨테이너 실행 시 python test.py 실행```
+```c
+docker run [이미지] [test.py]로 컨테이너 실행 시 python test.py 실행
+```
 
 #### 3) Docker Hub
 
@@ -1542,11 +1546,3 @@ docker pull
 docker pull 명령어: Docker Hub 에서 이미지를 다운로드함
 
 원하는 레포지토리와 태그를 클릭하여 제공되는 docker pull 명령어 사용
-컨테이너를 만들고, 실행하고, 배포할 수 있는 가상화 플랫폼
-
-도커의 컨테이너란?
-
--가상의 환경이 구축되어 있는 하나의 박스
-
--새로운 운영체제 환경 구축 필요 X 하나의 분리된 프로세스처럼 작동 즉, 특정한 환경을 구성하기 위해 만들어진 가상의 공간
-
