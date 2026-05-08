@@ -1163,7 +1163,385 @@ UNIX의 Vi(Visual editor) 기능을 개선한 버전의 텍스트 편집기
 | :%s/문자열1/문자열2/g | 전체에서 문자열1을 모두 찾아 문자열2로 전환 |
 
 #### (4) Docker(도커)
+컨테이너를 만들고, 실행하고, 배포할 수 있는 가상화 플랫폼
 
+도커의 컨테이너란?
+
+-가상의 환경이 구축되어 있는 하나의 박스
+
+-새로운 운영체제 환경 구축 필요 X, 하나의 분리된 프로세스처럼 작동 즉, 특정한 환경을 구성하기 위해 만들어진 가상의 공간
+
+- **도커 이미지(Docker Image)**
+
+-실행 설계도(ex:컨테이너 생성에 필요한 파일, 환경 변수, 명령어 등과 파일 시스템 포함)
+
+-이미지 생성 위해선 Dockerfile(이미지를 빌드하는 데 단계적으로 필요한 명령어가 있는 파일)을 작성하고 이미지를 빌드해야 함
+
+-도커 이미지에는 태그(Tag) 붙이기 가능 주로 이미지의 버전을 지정하기 위해 사용
+
+- 도커 컨테이너(Docker Container)
+
+-도커 이미지가 실행된 상태로 만들어진 독립된 실행 환경
+
+-이미지 실행하면 컨테이너 생성
+
+-실행할 때 지정한 옵션에 따라 동작, 각 컨테이너는 서로 분리된 파일 시스템을 사용해 독립적으로 동작
+
+- 도커 레지스트리(Docker Registry)
+
+-도커 이미지 저장하는 저장소(도커의 공식 레지스트리: Docker hub)
+
+-누구나 도커 이미지를 올리고, 존재하는 도커 이미지 가져오기 가능
+
+**도커를 쓰는 이유는?**
+
+-가상 환경 구축의 많은 부분을 생략하고 가볍게 실행됨 → 간편하게 문제 환경 재현, 문제 풀이에 방해가 되는 요소 줄임
+
+-문제가 각각 분리된 환경에 있는 것처럼 제공하여 다른 문제에 영향을 미치는 행위 혹은 출제자가 의도하지 않은 공격 수행 등을 막음
+
+#### 1) 도커 명령어
+
+- **도커 명령어 - 1**
+
+**docker build 기본 명령어**
+
+```c
+docker build [옵션] <경로>
+docker build -t <이미지명:태그> <경로>
+```
+
+1. -t 옵션으로 이미지의 이름과 태그 지정, 작성하지 않을 경우 ‘latest’로 지정
+2. docker build . : 현재 디렉토리에 있는 Dockerfile로 이미지 생성
+3. docker build -t my-image: 현재 디렉토리에 있는 Dockerfile로 ‘my-image:latest’ 이미지 생성
+- **docker images**
+
+도커 이미지 목록 출력 명령어
+
+- **도커 명령어 - 2**
+
+**docker run**
+
+도커 이미지로 컨테이너 생성 및 실행
+
+```c
+docker run [옵션] <이미지명|ID> <명령어>
+docker run -p <호스트 PORT>:<컨테이너 PORT> <이미지명|ID>
+docker run -it <이미지명|ID> <명령어>
+```
+
+**-p 옵션**: 도커 컨테이너의 포트와 호스트의 포트를 매핑
+
+(포트 매핑: 컨테이너 안의 서비스 포트를, 내 컴퓨터(호스트) 포트랑 연결하는 것
+
+📌 왜 필요하냐?
+
+컨테이너 안에서는 웹 서버가 이렇게 떠있음:
+
+- 컨테이너 내부: 80번 포트에서 서버 실행
+
+근데 문제 👉 내 PC에서는 컨테이너 내부 포트에 직접 접근 못함 그래서 연결해 줘야 함)
+
+**-it 옵션:** 컨테이너에서 bash 셸 사용 가능
+
+-i (--interactive): 표준 입력 활성화하여 사용자가 명령어 입력 가능하게 함
+
+-t (--tty): 가상 터미널(tty) 사용 가능하게 함
+
+ex) docker run -it my-image:1 /bin/bash :
+
+my image:1 이미지로 컨테이너를 생성하고 실행하여 bash 셸 열기
+
+ **docker ps**
+
+실행 중인 컨테이너 목록 출력
+
+```c
+docker ps -a
+```
+
+-**a 옵션:** 종료된 컨테이너까지 모두 출력
+
+- **도커 명령어 - 3**
+
+docker run 대신 컨테이너 생성과 실행을 따로 명령할 수 있다
+
+**docker create**
+
+도커 이미지로 컨테이너 생성
+
+**docker start**
+
+중단된 컨테이너 시작
+
+```c
+docker create [옵션] <이미지명|ID> [명령어]
+docker start [옵션] <컨테이너명|ID]
+```
+
+**docker exec**
+
+실행 중인 컨테이너에 접속하여 명령 수행
+
+```c
+docker exec [옵션] <컨테이너명|ID> [명령어]
+```
+
+docker run과 유사하게 -it 옵션으로 bash 셸 실행 가능
+
+→ docker exec -it <컨테이너명|ID> /bin/bash
+
+: 실행 중인 컨테이너에서 bash 셸 열기
+
+**docker stop**
+
+실행 중인 컨테이너 중단
+
+```c
+docker stop [옵션] <컨테이너명|ID>
+```
+
+- **도커 명령어 - 4**
+
+**docker pull**
+
+레지스트리에 존재하는 도커 이미지 다운받음
+
+**docker rm**
+
+도커 컨테이너 삭제
+
+**docker rmi**
+
+도커 이미지 삭제
+
+**docker inspect**
+
+도커 이미지 or 컨테이너의 자세한 정보 출력
+
+```c
+docker pull [옵션] <이미지명>
+docker rm [옵션] <컨테이너명|ID>
+docker rmi [옵션] <이미지명|ID>
+docker inspect [옵션] <이미지 or 컨테이너명|ID>
+```
+
+#### 2) Dockerfile
+
+**(1) Dockerfile 구성 방법, 명령어 -1**
+
+docker biuld: 이름이 Dockerfile인 파일을 찾아 이미지를 빌드함
+
+-f: 원하는 이름의 도커 파일 사용 가능
+
+도커 파일을 구성하는 기본 형식
+
+```c
+1 #주석
+2 명령어 인자
+3
+4 # ---예시---
+5 FROM ubuntu:18.04
+
+```
+
+(2) Dockerfile 명령어
+
+-Dockerfile은 FROM 명령어로 시작 이후 순서대로 명령어 실행
+
+- **FROM**
+
+-생성할 이미지의 기반이 되는 base 이미지 지정
+
+-보통 사용할 운영체제의 공식 이미지를 Dockerhub 에서 가져옴
+
+```c
+FROM 이미지:태그
+```
+
+`FROM` = 기반 이미지 지정
+
+`ubuntu` = 이미지 이름
+
+`18.04` = 태그(버전)
+
+- **ENV**
+
+```c
+ENV 변수명 값
+ENV 변수명=값
+
+```
+
+-Dockerfile 내에서 사용하는 환경 변수 지정
+
+-파일 내에서 변수는 $변수명 or ${변수명} 형태로 표현
+
+EX)
+
+ENV PYTHON_VERSION 3.11.2
+
+→ …/python/$PYTHON_VERSION/…
+
+**(2) Dockerfile 명령어 -2**
+
+- **RUN**
+
+-이미지를 빌드할 때 실행할 명령어 작성
+
+-필요한 패키지 설치 or 파일 권한 설정 등의 작업 수행
+
+```c
+RUN 명령어 -> RUN apt-get update
+RUN ["명령어", "인자1", "인자2"]
+-> RUN ["/bin/bash", "-c", "echo hello"]
+```
+
+- **COPY**
+
+-src 파일이나 디렉토리를 이미지 파일 시스템의 dest로 복사
+
+```c
+COPY <src> <dest>
+```
+
+EX)
+
+copy . /app
+
+의미: 현재 폴더(`.`) 안의 모든 파일을 Docker 이미지 내부의 `/app` 폴더로 복사
+
+- ADD
+
+-src 파일이나 디렉토리, URL을 이미지 파일 시스템의 dest로 복사
+
+```c
+ADD <src> <dest>
+ex) ADD . /app
+```
+
+- WORKDIR
+
+-Dockerfile 내의 명령을 수행할 작업 디렉토리 지정
+
+-리눅스의 cd 명령어와 유사
+
+```c
+WORKDIR 디렉토리
+ex) WORKDIR /home/user
+```
+
+- USER
+
+-명령을 수행할 사용자 or 그룹 지정
+
+```c
+USER 사용자명 |UID
+USER 사용자명 |UID[:그룹명|GID]
+ex) USER $username
+```
+
+- EXPOSE
+
+-컨테이너가 실행 중일 때 들어오는 네트워크 트래픽을 리슨할 포트와 프로토콜 지정
+
+-사용할 수 있는 프로토콜: TCP, UDP 기본적으론 TCP 지정됨
+
+```c
+EXPOSE 포트
+EXPOSE 포트/프로토콜
+ex) EXPOSE 80/tcp
+```
+
+**(3) Dockerfile 명령어 -3**
+
+- ENTRYPOINT
+
+-컨테이너가 실행될 때 수행할 명령어 지정
+
+```c
+ENTRYPOINT 명령어 인자1 인자2
+ENTRYPOINT ["명령어", "인자1", "인자2"]
+ex) ENTRYPOINT ["echo", "hello"]
+```
+
+- CMD
+
+-컨테이너가 실행될 때 수행할 명령어 지정 or ENTERPOINT 명령어에 인자 전달
+
+```c
+CMD 명령어 인자1 인자2
+CMD ["명령어", "인자1", "인자2"]
+CMD ["인자1", "인자2"]
+ex) CMD ["echo", "hello"]
+```
+
+-Dockerfile 내에 CMD 명령이 여러 개 존재하면 마지막 CMD 사용
+
+-docker run의 인자를 작성하면 CMD 명령어 무시
+
+-ENTERPOINT가 있는 경우, docker run의 인자가 ENTERPOINT의 인자로 들어감
+
+```c
+ENTRYPOINT ["python"]
+CMD ["[app.py](http://app.py/)"]
+```
+
+Dockerfile이 위와 같을 때
+
+docker run [이미지]로 컨테이너 실행 시 python [app.py](http://app.py) 실행
+
+docker run [이미지] [test.py](http://test.py)로 컨테이너 실행 시 python test.py 실행
+
+#### 3) Docker Hub
+
+-도커의 공식 레지스트리로, 도커 이미지를 저장하는 저장소
+
+-도커에서 제공하는 공식 이미지는 기본 OS(Linux, CentOS 등) 이미지나 특정 프로그래밍 언어의 개발 환경 등을 제공
+
+#### **Docker Hub 이미지 업로드**
+
+1. **Docker login**
+
+```c
+user@user-VirtualBox:~$ docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to [https://hub.docker.com](https://hub.docker.com/) to create one.
+Username: dreamhackofficial
+Password:
+WARNING! Your password will be stored unencrypted in /home/user/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+user@user-VirtualBox:~$
+```
+
+1. **Dockerfile 을 이용하여 이미지 빌드**
+
+```c
+docker build -t [사용자]/[레포지토리명:][TAG] [Dockerfile 경로]
+```
+
+이미지 이름은 [사용자]/[레포지토리명]:[TAG] 형식으로 지정
+
+1. **레포지토리에 이미지 업로드**
+
+```c
+docker push [사용자]/[레포지토리명]:[TAG]
+```
+
+#### Docker Hub 이미지 다운로드
+
+-Docker Hub 레포지토리에 이미지가 업로드 되면, 우측의 명령어를 복사해 누구나 이미지를 다운받을 수 있음
+
+-Docker Hub에서 이미지는 레포지토리에 보관됨
+
+```c
+docker pull
+```
+
+docker pull 명령어: Docker Hub 에서 이미지를 다운로드함
+
+원하는 레포지토리와 태그를 클릭하여 제공되는 docker pull 명령어 사용
 컨테이너를 만들고, 실행하고, 배포할 수 있는 가상화 플랫폼
 
 도커의 컨테이너란?
