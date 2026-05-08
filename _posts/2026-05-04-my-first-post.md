@@ -1592,21 +1592,14 @@ xxx@xxx.x ← 정규 표현식에 매치하지 않음
 | 문자 or 문자열 | 해당 문자 or 문자열과 매치 | dreamhack → Hello dreamhack
 /c/ → Hello dreamhack |
 | . | 모든 문자와 매치 | d.eamhack → Hello dxeamhack |
-| | | 앞 or 뒤의 패턴과 매치 | hi|dream(hi  or dream)
-→Hello dreamhack |
+| | | 앞 or 뒤의 패턴과 매치 | hi|dream(hi  or dream) →Hello dreamhack |
 | [] | [] 안 문자와 매치 | [aeiou]→Hi |
 | [^ ] | ^ 뒤의 패턴을 제외한 나머지와 매치 | [^aeoiu]→Hi |
-| ^ | 어떤 문자열의 시작이 특정 패턴인 경우 매치 | ^dream→dreamhack Helllo
-^dream→ Hello dreamhack(X) |
+| ^ | 어떤 문자열의 시작이 특정 패턴인 경우 매치 | ^dream→dreamhack Helllo /^dream→ Hello dreamhack(X) |
 | $ | 어떤 문자열의 끝이 특정 패턴인 경우 매치 | hack$ → Hello dreamhack |
-| \ | \ 뒤의 특수 문자와 매치
-특별한 목적으로 사용되는 특수 문자를 그대로 쓰기 위한 이스켕핑 | hack\$→ Hello dreamhack$ |
-| [a-z]
-[A-Z]
-[0-9] | 두 문자 사이 범위 문자와 매치 | [b-d]→hack |
+| \ | \ 뒤의 특수 문자와 매치, 특별한 목적으로 사용되는 특수 문자를 그대로 쓰기 위한 이스켕핑 | hack\$→ Hello dreamhack$ |
+| [a-z] [A-Z] [0-9] | 두 문자 사이 범위 문자와 매치 | [b-d]→hack |
 | \w | 알파벳 or 숫자 or _ 와 매치
 [A-Za-z0-9] | \w→a! |
-| \d | 숫자와 매치
-[0-9] | \d→a1 |
-| \s | 공백 문자와 매치
-[\b\f\n\r\t\v] |  |
+| \d | 숫자와 매치 [0-9] | \d→a1 |
+| \s | 공백 문자와 매치[\b\f\n\r\t\v] |  |
