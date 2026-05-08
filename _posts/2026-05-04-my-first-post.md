@@ -1589,8 +1589,7 @@ xxx@xxx.x ← 정규 표현식에 매치하지 않음
 
 | 패턴 | 설명 | 예시 |
 | --- | --- | --- |
-| 문자 or 문자열 | 해당 문자 or 문자열과 매치 | dreamhack → Hello dreamhack
-/c/ → Hello dreamhack |
+| 문자 or 문자열 | 해당 문자 or 문자열과 매치 | dreamhack → Hello dreamhack /c/ → Hello dreamhack |
 | . | 모든 문자와 매치 | d.eamhack → Hello dxeamhack |
 | \| | 앞 or 뒤의 패턴과 매치 | hi\|dream(hi  or dream) →Hello dreamhack |
 | [] | [] 안 문자와 매치 | [aeiou]→Hi |
