@@ -1,7 +1,7 @@
 ---
 title: "Dream Beginners"
 date: 2026-05-04 00:00:00 +0900
-categories: [dreamhack]
+categories: [강의]
 tags: [xss, security]
 ---
 
