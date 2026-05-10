@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "LabEx 리눅스 퀵 스타트 코스"
 date: 2026-05-10 00:00:00 +0900
 categories: [강의]
 tags: [Linux, Hactor]
